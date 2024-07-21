@@ -6,6 +6,7 @@ function App( ) {
   const[state,setState]=useState(Array(9).fill(null));
   const[currentTurn,setCurrentTurn]=useState("X");
   const[winner,setWinner] = useState("");
+  const[end,setEnd] = useState ("");
 
   const checkWinner = (state:any[]) =>{
     const win = [
@@ -26,6 +27,11 @@ function App( ) {
   }
 
   const handleBlockClick = (index: number) =>{
+    if(winner !== ""){
+      // setEnd("End Game")
+      alert("end game")
+      return;
+    }
    const stateCopy = Array.from(state)
    if(stateCopy[index] !== null) return;
 
@@ -44,6 +50,7 @@ function App( ) {
   return (
     <div className="board">
       <h1>winner : {winner}</h1>
+      <h2>{end}</h2>
       <div className="row">
         <Block onClick={()=>handleBlockClick(0)} value={state[0]} />
         <Block onClick={()=>handleBlockClick(1)} value={state[1]} />
