@@ -4,7 +4,8 @@ import Block from './components/Block';
 
 function App( ) {
   const[state,setState]=useState(Array(9).fill(null));
-  const[currentTurn,setCurrentTurn]=useState("X")
+  const[currentTurn,setCurrentTurn]=useState("X");
+  const[winner,setWinner] = useState("");
 
   const checkWinner = (state:any[]) =>{
     const win = [
@@ -29,17 +30,20 @@ function App( ) {
    if(stateCopy[index] !== null) return;
 
    stateCopy[index]=currentTurn;
+   setCurrentTurn(currentTurn === "X" ? "0" : "X");
+   setState(stateCopy);
 
    const win = checkWinner(stateCopy);
    if(win){
-    alert(`${currentTurn} won the game`)
+    // alert(`${currentTurn} won the game`)
+    setWinner(currentTurn)
    }
-
-   setCurrentTurn(currentTurn === "X" ? "0" : "X");
-   setState(stateCopy);
   }
+
+  
   return (
     <div className="board">
+      <h1>winner : {winner}</h1>
       <div className="row">
         <Block onClick={()=>handleBlockClick(0)} value={state[0]} />
         <Block onClick={()=>handleBlockClick(1)} value={state[1]} />
